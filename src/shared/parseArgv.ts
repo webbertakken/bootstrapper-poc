@@ -19,7 +19,7 @@
  *     "test7" => "9BX9"
  *   }
  */
-export const parseArgv = (argv: string[] = []): Map<string, string | number | boolean> => {
+export const parseArgv = (argv: string[] = [], { verbose = false } = {}): Map<string, string | number | boolean> => {
   const providedArguments = new Map<string, string | number | boolean>();
 
   for (let current = 0, next = 1; current < argv.length; current += 1, next += 1) {
@@ -40,7 +40,7 @@ export const parseArgv = (argv: string[] = []): Map<string, string | number | bo
     else if (!isNaN(Number(value)) && !isNaN(parseInt(value))) value = parseInt(value);
 
     // Assign
-    console.log(`Found flag "${flag}" with value "${value}" (${typeof value}).`);
+    if (verbose) console.log(`Found flag "${flag}" with value "${value}" (${typeof value}).`);
     providedArguments.set(flag, value);
   }
 
